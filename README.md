@@ -9,3 +9,7 @@
 4. Add virtual host in your system (for example in Windows: `127.0.0.1 precious-metals-api.local`)
 5. Open `https://precious-metals-api.local` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
 6. Run `docker compose down --remove-orphans` to stop the Docker containers.
+
+
+docker exec -it precious-metals-api-php-1 php bin/console doctrine:migrations:migrate
+docker exec -it precious-metals-api-php-1 php bin/console doctrine:fixtures:load
