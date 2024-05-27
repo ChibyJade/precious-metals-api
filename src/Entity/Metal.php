@@ -2,17 +2,30 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use App\Repository\MetalRepository;
+use App\State\MetalPriceProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MetalRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(
+            uriTemplate: '/metal/{symbol}/spot',
+            requirements: ['symbol' => '\w+'],
+            output: MetalPrice::class,
+            provider: MetalPriceProvider::class
+        )
+    ]
+)]
 class Metal
 {
     #[ORM\Id]
     #[ORM\Column(length: 255)]
-    private ?string $ISO4217Code = null;
+    private ?string $symbol = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -40,14 +53,14 @@ class Metal
         return $this;
     }
 
-    public function getISO4217Code(): ?string
+    public function getSymbol(): ?string
     {
-        return $this->ISO4217Code;
+        return $this->symbol;
     }
 
-    public function setISO4217Code(string $ISO4217Code): static
+    public function setSymbol(string $symbol): static
     {
-        $this->ISO4217Code = $ISO4217Code;
+        $this->symbol = $symbol;
 
         return $this;
     }

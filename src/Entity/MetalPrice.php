@@ -2,20 +2,12 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
 use App\Repository\MetalPriceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MetalPriceRepository::class)]
-#[ApiResource(
-    operations: [
-        new Get(),
-        new GetCollection()
-    ]
-)]
+
 class MetalPrice
 {
     #[ORM\Id]
@@ -24,7 +16,7 @@ class MetalPrice
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'metalPrices')]
-    #[ORM\JoinColumn(name:"metal_iso4217_code", referencedColumnName: "iso4217_code", nullable: false)]
+    #[ORM\JoinColumn(name:"metal_symbol", referencedColumnName: "symbol", nullable: false)]
     private ?Metal $metal = null;
 
     #[ORM\Column(length: 255)]

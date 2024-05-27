@@ -13,3 +13,5 @@
 
 docker exec -it precious-metals-api-php-1 php bin/console doctrine:migrations:migrate
 docker exec -it precious-metals-api-php-1 php bin/console doctrine:fixtures:load
+
+GOLD_API_KEY
